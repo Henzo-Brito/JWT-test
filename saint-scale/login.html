@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="register">
+    <main>
+		<div class="main">
+			<section class="off">
+				<div class="gp-off">
+					<div class="name">
+						<h1 onclick="document.location='index.html'">Saint<b>Scale</b></h1>
+					</div>
+					<div class="back">
+						<a href="index.html">
+							<i class="bi bi-arrow-left-square-fill"></i>
+						</a>
+					</div>
+				</div>
+			</section>
+			<section class="reg">
+				<div class="container" id="c-cad">
+					<h1>Login</h1>
+					<div class="form-cad">
+						<form id="login-form">
+							<div class="inputs">
+								<p>
+									Email:
+									<input type="text" id="login-email" class="inp-txt">
+								</p>
+								<p>
+									Senha:
+									<input type="password" id="login-password" class="inp-txt">
+								</p>
+							</div>
+							<p id="login-error" style="color:red;display:none;"></p>
+							<input type="submit" value="Logar" class="inp-cad">
+						</form>
+					</div>
+					<p class="log">
+						Ainda não possui uma conta?
+						<a href="cadastro.html">Cadastre-se</a>
+					</p>
+					<p>
+						<a href="recSenha.html">Esqueceu a senha?</a>
+					</p>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<script src="config.js"></script>
+	<script>
+		document.getElementById("login-form").addEventListener("submit", async function (e) {
+			e.preventDefault();
+
+			const email = document.getElementById("login-email").value.trim();
+			const password = document.getElementById("login-password").value;
+			const errorEl = document.getElementById("login-error");
+
+			errorEl.style.display = "none";
+			errorEl.textContent = "";
+
+			try {
+				const res = await fetch(`${API_BASE}/auth/login`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ email, password }),
+				});
+
+				const data = await res.json();
+
+				if (!res.ok) {
+					errorEl.textContent = data.message || "Erro ao fazer login.";
+					errorEl.style.display = "block";
+					return;
+				}
+
+				localStorage.setItem("accessToken", data.accessToken);
+				document.location = "index.html";
+			} catch (err) {
+				errorEl.textContent = "Não foi possível conectar ao servidor.";
+				errorEl.style.display = "block";
+			}
+		});
+	</script>
+</body>
+</html>

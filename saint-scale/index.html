@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>SaintScale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="menu">
+            <a href="#">
+                <i class="bi bi-list"></i>
+            </a>
+            <h1 class="title" onclick="document.location='index.html'">Saint<b>Scale</b></h1>
+        </div>
+        <div class="links" id="nav-links">
+            <a href="login.html">Login</a>
+            <a href="cadastro.html">Cadastrar-se</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-image">
+            <div class="container" id="hero-img">
+                <div class="logo">
+                    <img src="img/logo.png" alt="Logo do Saint Scale">
+                </div>
+                <div class="txt" id="hero-txt">
+                    <h1>Seja Bem Vindo(a) ao Melhor Gerenciador de Escalas para Igrejas!</h1>
+                    <p>Processo <b>simples, rápido e confiável</b>.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="config.js"></script>
+    <script>
+
+        async function initSession() {
+            const token = localStorage.getItem("accessToken");
+            const navLinks = document.getElementById("nav-links");
+
+            if (!token) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/me`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                if (!res.ok) {
+                    localStorage.removeItem("accessToken");
+                    return;
+                }
+
+                const user = await res.json();
+
+                navLinks.innerHTML = `
+                    <span>Olá, ${user.name}</span>
+                    <a href="#" id="btn-logout">Sair</a>
+                `;
+
+                document.getElementById("btn-logout").addEventListener("click", async function (e) {
+                    e.preventDefault();
+                    const refreshToken = localStorage.getItem("refreshToken") ?? "";
+                    await fetch(`${API_BASE}/auth/logout`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                        body: JSON.stringify({ refreshToken }),
+                    });
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    document.location.reload();
+                });
+            } catch (err) {
+                // servidor indisponível, mantém links padrão
+            }
+        }
+
+        initSession();
+    </script>
+</body>
+
+</html>

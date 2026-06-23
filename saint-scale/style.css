@@ -1,0 +1,345 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: Calibri;
+    user-select: none;
+}
+
+body {
+    width: 100dvw;
+    height: 100vh;
+    background-color: black;
+    color: white;
+}
+
+/* SPLASH */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: clamp(3rem, 10dvw, 1rem);
+}
+
+#name {
+    color: white;
+}
+
+#name h1 {
+    animation: jump 1s;
+}
+
+#name p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(22px, 5dvw, 30px);
+    z-index: -1;
+    animation: down 1.5s forwards;
+}
+
+@keyframes down {
+    from {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, 6rem) scale(1);
+        opacity: 1;
+    }
+}
+
+img {
+    width: clamp(230px, 40dvw, 300px);
+    max-width: 100%;
+    height: auto;
+    margin: 0 0 6rem 0;
+    border-radius: 50%;
+    animation: jump .5s;
+    box-shadow: 0 12px 10px 0 rgba(0, 0, 0, 0.418), 0 10px 50px 0 rgba(46, 46, 46, 0.685);
+}
+
+@keyframes jump {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.btn button {
+    background-color: #9054ff;
+    width: clamp(100px, 20dvw, 130px);
+    height: clamp(50px, 20dvw, 60px);
+    border-radius: 10px;
+    color: black;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn button:hover {
+    background-color: #592ea8;
+    color: white;
+    transform: scale(1.03);
+}
+
+
+/* INDEX */
+header {
+    background-color: #693eb9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100dvw;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    padding: 10px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.menu a {
+    color: white;
+    font-size: clamp(20px, 4dvw, 30px);
+    transition: .3s;
+}
+
+.menu a:hover {
+    transform: scale(.95);
+}
+
+.title {
+    color: white;
+    cursor: pointer;
+    font-size: clamp(20px, 5dvw, 30px);
+}
+
+b {
+    color: #3ebc6d;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: clamp(18px, 3dvw, 20px);
+    margin-right: 10px;
+    gap: clamp(10px, 7dvw, 50px);
+}
+
+.links a {
+    color: white;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.links a:hover {
+    color: #d3a8dd;
+    transform: scale(0.98);
+}
+
+.hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.918), rgba(0, 2, 94, 0.808)), url("img/bg.jpg");
+    height: 100vh;
+    width: 100dvw;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#hero-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+#hero-txt {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    gap: 15px;
+    animation: slide-down 1.5s forwards;
+    z-index: -1;
+}
+
+@keyframes slide-down {
+    from {
+        transform: translate(-50%, -50%);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translate(-50%, -50%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, 8rem);
+        opacity: 1;
+    }
+}
+
+#hero-txt h1 {
+    font-size: clamp(23px, 4dvw, 32px);
+}
+
+#hero-txt p {
+    font-size: clamp(18px, 4dvw, 25px);
+}
+
+/* CADASTRO */
+
+.register {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.918), rgba(0, 2, 94, 0.808));
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.name h1 {
+    cursor: pointer;
+    font-size: 40px;
+}
+
+.back {
+    position: relative;
+    top: 5rem;
+}
+.back a {
+    font-size: 40px;
+    color: white;
+}
+.back a:hover {
+    color: #d6d6d6;
+}
+
+#c-cad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: clamp(20px, 4dvw, 50px);
+    border-radius: 30px;
+    color: black;
+    gap: clamp(10px, 4dvw, 50px);
+}
+
+#c-cad h1 {
+    font-size: clamp(22px, 4dvw, 30px);
+}
+
+.form-cad form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 20px;
+    font-size: clamp(15px, 4dvw, 20px);
+}
+
+.inp-txt {
+    width: clamp(200px, 40dvw, 700px);
+    line-height: clamp(33px, 4dvw, 44px);
+    border-radius: 8px;
+    font-size: clamp(15px, 4dvw, 18px);
+    padding: 0 0 0 10px;
+    border: 1px solid rgb(212, 212, 212);
+    background-color: rgba(128, 128, 128, 0.103);
+}
+
+.inp-cad {
+    width: clamp(100px, 15dvw, 180px);
+    height: clamp(40px, 5dvw, 55px);
+    font-size: clamp(16px, 2dvw, 22px);
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    background-color: #9054ff;
+    color: black;
+    transition: .3s;
+}
+
+.inp-cad:hover {
+    background-color: #592ea8;
+    color: white;
+    transform: scale(1.03);
+}
+
+.log {
+    font-size: clamp(14px, 4dvw, 18px);
+}
+.log a {
+    color: #9054ff;
+    transition: .3s;
+}
+.log a:hover {
+    color: #592ea8;
+}
+
+@media (max-width: 768px){
+    .inp-txt {
+        display: flex;
+    }
+}
+/* LOGIN */
+
+/* RECUPERAÇÃO DE SENHA */
