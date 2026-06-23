@@ -1,0 +1,45 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: saintscale-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: saintscale
+      POSTGRES_PASSWORD: saintscale
+      POSTGRES_DB: saintscale
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U saintscale"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./back
+    container_name: saintscale-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://saintscale:saintscale@db:5432/saintscale
+      JWT_SIGNATURE: ${JWT_SIGNATURE:-changeme_in_production}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  front:
+    build:
+      context: ./saint-scale
+    container_name: saintscale-front
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
